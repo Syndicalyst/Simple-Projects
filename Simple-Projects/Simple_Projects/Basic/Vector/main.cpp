@@ -1,9 +1,10 @@
-#include <stdio.h>
+#include <cstdio>
+#include <iostream>
 #include "Vector.h"
 
 int main() {
-    Vector first = Vector(7,8);
-    Vector second = Vector(9,3);
+    Vector first(7,8);
+    Vector second(9,3);
     Vector def;
 
     std::cout << first << std::endl;

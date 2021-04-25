@@ -1,35 +1,35 @@
+#include <iostream>
 #include "Paper.h"
 
-Paper::Paper(int maxSymbols): maxSymbols(4096) {
-    this->maxSymbols = maxSymbols;
-    this->symbols = 0;
-    this->content = "";
+Paper::Paper(size_t maxSymbols): maxSymbols(maxSymbols), symbols(0) {
 }
 
-Paper::~Paper() {}
+Paper::~Paper() = default;
 
-int Paper::getMaxSymbols() const {
+size_t Paper::getMaxSymbols() const {
     return this->maxSymbols;
 }
-int Paper::getSymbols() const {
+
+size_t Paper::getSymbols() const {
     return this->symbols;
 }
 
 void Paper::addContent(const std::string& message) {
-    int total = symbols += message.length();
+    const size_t total = symbols + message.length();
 
     if (symbols == maxSymbols) {
         throw OutOfSpace();
     }
     if (total > maxSymbols) {
-        int len = maxSymbols - symbols;
+        const size_t remaining = maxSymbols - symbols;
 
-        content += message.substr(0, len - 1);
+        content.append(message, 0, remaining);
         symbols = maxSymbols;
         return;
     }
+
     content += message;
-    symbols += message.length();
+    symbols = total;
 }
 
 void Paper::show() const {

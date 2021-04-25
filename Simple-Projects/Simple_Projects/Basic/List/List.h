@@ -1,8 +1,7 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <iostream>
-#include <cstdlib>
+#include <iosfwd>
 
 class OutOfMemoryException {};
 class ZeroLenException {};
@@ -14,7 +13,7 @@ class List {
         double multiplier;
         int current;
     public:
-        List(int capacity=100, double multiplier=1.05);
+        List(int capacity=8, double multiplier=1.5);
         ~List();
 
         int size() const;
