@@ -1,25 +1,22 @@
 #include <iostream>
-
 #include "Car.h"
+
+static void print(const Car& car) {
+    std::cout << "=======================\n" << car;
+    std::cout << "=======================\n";
+}
 
 int main() {
     Car car;
-    
-    std::cout << "=======================" << std::endl;
-
-    std::cout << car << std::endl;
-
-    std::cout << "=======================" << std::endl;
+    print(car);
 
     try {
         car.refill(60);
-    } catch (ToMuchFuel) {
+    } catch (TooMuchFuel) {
         std::cout << "Car tank overfilled!" << std::endl;
     }
 
-    std::cout << car << std::endl;
-
-    std::cout << "=======================" << std::endl;
+    print(car);
 
     try {
         car.drive(Point(5, 11));
@@ -27,9 +24,6 @@ int main() {
         std::cout << "Out of Fuel!" << std::endl;
     }
 
-    std::cout << car << std::endl;
-
-    //delete &car;
-
+    print(car);
     return 0;
 }

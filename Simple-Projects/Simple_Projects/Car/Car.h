@@ -1,11 +1,11 @@
 #ifndef CAR_H
 #define CAR_H
 
-#include <iostream>
+#include <iosfwd>
 #include "Point.h"
 
 class OutOfFuel {};
-class ToMuchFuel {};
+class TooMuchFuel {};
 
 class Car {
     private:
@@ -15,7 +15,7 @@ class Car {
         Point location;
         std::string model;
     public:
-        Car(double capacity=60, double consumption=0.6, const Point& location=Point(0, 0), const std::string& model="Mercedes");
+        Car(double capacity=60, double consumption=0.6, const Point& location=Point(0, 0), std::string model="Mercedes");
         ~Car();
 
         double getFuelAmount() const;

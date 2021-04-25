@@ -1,8 +1,7 @@
 #ifndef POINT_H
 #define POINT_H
 
-#include <iostream>
-#include <cmath>
+#include <iosfwd>
 
 class Point {
     private:
@@ -14,6 +13,10 @@ class Point {
 
         double getX() const;
         double getY() const;
+
+        void setX(double value);
+        void setY(double value);
+
         double distance(const Point& other) const;
         bool operator==(const Point& other) const;
         bool operator!=(const Point& other) const;
