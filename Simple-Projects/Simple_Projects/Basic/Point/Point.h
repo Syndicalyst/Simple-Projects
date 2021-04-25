@@ -1,8 +1,7 @@
 #ifndef POINT_H
 #define POINT_H
 
-#include <iostream>
-#include <cmath>
+#include <iosfwd>
 
 class Point {
     private:

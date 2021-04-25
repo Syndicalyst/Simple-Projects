@@ -1,11 +1,11 @@
+#include <cmath>
+#include <ostream>
 #include "Vector.h"
 
-Vector::Vector(double x, double y) : x(0), y(0) {
-    this->x = x;
-    this->y = y;
+Vector::Vector(double x, double y) : x(x), y(y) {
 }
 
-Vector::~Vector() {}
+Vector::~Vector() = default;
 
 double Vector::getX() const {
     return this->x;
@@ -32,7 +32,7 @@ bool Vector::operator==(const Vector& other) const {
 }
 
 bool Vector::operator!=(const Vector& other) const {
-    return x != other.x || y != other.y;
+    return !(*this == other);
 }
 
 void Vector::operator+=(const Vector& other) {
@@ -60,6 +60,5 @@ Vector Vector::operator-(const Vector& other) const {
 }
 
 std::ostream& operator<<(std::ostream& out, const Vector& vector) {
-    out << '(' << vector.getX() << '.' << vector.getY() << ')';
-    return out;
+    return out << '(' << vector.getX() << '.' << vector.getY() << ')';
 }

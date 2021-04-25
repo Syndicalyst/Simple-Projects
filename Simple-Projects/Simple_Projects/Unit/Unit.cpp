@@ -1,3 +1,4 @@
+#include <ostream>
 #include "Unit.h"
 
 void Unit::ensureIsAlive() {
@@ -6,14 +7,14 @@ void Unit::ensureIsAlive() {
     }
 }
 
-Unit::Unit(const std::string& name, int hp, int dmg) {
-    this->name = name;
-    this->damage = dmg;
-    this->hitPointsLimit = hp;
-    this->hitPoints = hp;
+Unit::Unit(std::string name, int hp, int dmg):
+        name(std::move(name)),
+        damage(dmg),
+        hitPoints(hp),
+        hitPointsLimit(hp) {
 }
 
-Unit::~Unit() {}
+Unit::~Unit() = default;
 
 int Unit::getDamage() const {
     return this->damage;
@@ -31,8 +32,9 @@ const std::string& Unit::getName() const {
 void Unit::addHitPoints(int hp) {
     if (hitPoints + hp > hitPointsLimit) {
         hitPoints = hitPointsLimit;
+    } else {
+        hitPoints += hp;
     }
-    hitPoints += hp;
 }
 void Unit::takeDamage(int dmg) {
     ensureIsAlive();
@@ -53,7 +55,7 @@ void Unit::counterAttack(Unit& enemy) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Unit& unit) {
-    out << "Unit name: " << unit.getName() << std::endl;
-    out << "Unit Health: " << unit.getHitPoints() << '/' << unit.getHitPointsLimit() << std::endl;
-    out << "Unit Damage: " << unit.getDamage() << std::endl;  
+    out << "Unit name: " << unit.getName() << '\n';
+    out << "Unit health: " << unit.getHitPoints() << '/' << unit.getHitPointsLimit() << '\n';
+    out << "Unit damage: " << unit.getDamage() << '\n';  
 }

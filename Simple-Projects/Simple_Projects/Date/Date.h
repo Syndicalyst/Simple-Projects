@@ -1,13 +1,14 @@
 #ifndef DATE_H
 #define DATE_H
 
-#include <iostream>
-#include <iomanip>
+#include <iosfwd>
+#include <string>
+#include <utility>
 
 class InvalidDate {
     public:
         std::string text;
-        InvalidDate(const std::string& text) : text(text) {}
+        InvalidDate(std::string text) : text(std::move(text)) {}
 };
 
 class Date {
