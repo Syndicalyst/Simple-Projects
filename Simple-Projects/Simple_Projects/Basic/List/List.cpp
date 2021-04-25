@@ -1,14 +1,15 @@
-#include <algorithm>
+#include <iostream>
 #include <cstdlib>
-#include <ostream>
 
 #include "List.h"
 
-List::List(int capacity, double multiplier):
-        array((int*)malloc(capacity*sizeof(int))),
-        capacity(capacity),
-        multiplier(multiplier),
-        current(0) {
+List::List(int capacity, double multiplier): capacity(100), multiplier(1.05) {
+    this->capacity = capacity;
+    this->multiplier = multiplier;
+    this->current = 0;
+
+    array = (int*)malloc(capacity*sizeof(int));
+
     if (array == NULL) {
         throw OutOfMemoryException();
     }
@@ -27,23 +28,28 @@ int List::max_size() const {
 }
 
 void List::erase(int index) {
-    if ( current > index && index >= 0 ) {
-		std::copy(array + index + 1, array + current, array);
-        --current;
+    if ( current > index && index > 0 ) {
+        current -= 1;
+
+        for (int i = 0; i < current; i++ ) {
+        	array[i] = array[i+1];
+        }
     }
 }
 
 void List::insert(int value, int index) {
     if ( current >= index && index >= 0 ) {
-        push_back(0);
+        push_back(value);
 
-		std::copy_backward(array + index, array + current - 1, array + current);
+        for ( int i = current; i > index; i-- ) {
+            array[i] = array[i-1];
+        }
         array[index] = value;
     }
 }
 
 int List::find(int value) const {
-    for ( int i = 0 ; i < current; ++i ) {
+    for ( int i = 0 ; i < current; i++ ){
         if ( array[i] == value ) {
             return i;
         }
@@ -52,9 +58,11 @@ int List::find(int value) const {
 }
 
 void List::push_back(int value) {
-    if ( current == capacity ) {
-       const int newCapacity = capacity * multiplier;
-       int* const newArray = (int*)realloc(array, newCapacity*sizeof(int));
+    int newCurrent = current + 1;
+
+    if ( newCurrent > capacity ) {
+       int newCapacity = capacity * multiplier;
+       int* newArray = (int*)realloc(array, newCapacity*sizeof(int));
 
        if ( newArray == NULL ) {
            throw OutOfMemoryException();
@@ -64,26 +72,28 @@ void List::push_back(int value) {
        array = newArray;
     }
     array[current] = value;
-	++current;
+    current = newCurrent;
 }
 
 int List::pop_back() {
     if ( current == 0 ) {
        throw ZeroLenException();
     }
-    return array[--current];
+    current -= 1;
+    return array[current];
 }
 
 void List::sort() {
-    const int last = current - 1;
+    int last = current - 1;
 
-	// Bubble sorting will keep an invariant as follows: [sorted|unsorted]
-	for ( int sorted = 0; sorted < last; ++sorted ) {
-		for ( int i = last; i > sorted; --i ) {
-			// Bubble down the max element from the unsorted region
-			const int prev = i - 1;
-            if ( array[prev] > array[i] ) {
-                std::swap(array[prev], array[i]);
+	for ( int i = 0; i < last; i++ ) {
+		for ( int j = 0; j < last; j++ ) {
+			int min = j + 1;
+            if ( array[j] > array[min] ) {
+                int temp = array[j];
+
+                array[j] = array[min];
+                array[min] = temp;
             }
 		}
 	}
@@ -102,10 +112,11 @@ bool List::operator!=(const List& other) const {
 }
 
 std::ostream& operator<<(std::ostream& out, const List& list) {
-    const int last = list.size() - 1;
+    int last = list.size() - 1;
 
-    for ( int i = 0; i < last; ++i ) {
+    for ( int i = 0; i < last; i++ ) {
         out << list[i] << ' ';
     }
-    return out << list[last];
+    out << list[last];
+    return out;
 }

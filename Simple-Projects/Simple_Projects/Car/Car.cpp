@@ -1,15 +1,15 @@
-#include <ostream>
 #include "Car.h"
 
-Car::Car(double capacity, double consumption, const Point& location, std::string model): 
-        fuelCapacity(capacity),
-        fuelAmount(capacity),
-        fuelConsumption(consumption),
-        location(location),
-        model(std::move(model)) {
+Car::Car(double capacity, double consumption, const Point& location, const std::string& model): 
+        fuelCapacity(60), fuelConsumption(0.6), location(Point(0,0)), model("Mercedes") {
+    this->fuelCapacity = capacity;
+    this->fuelAmount = capacity;
+    this->fuelConsumption = consumption;
+    this->location = location;
+    this->model = model;
 }
 
-Car::~Car() = default;
+Car::~Car() {}
 
 double Car::getFuelAmount() const {
     return this->fuelAmount;
@@ -47,19 +47,18 @@ void Car::drive(double x, double y) {
 }
 
 void Car::refill(double fuel) {
-    const double newFuelAmount = fuelAmount + fuel;
+    double newFuelAmount = fuelAmount + fuel;
+    fuelAmount = newFuelAmount;
 
     if ( newFuelAmount > fuelCapacity ) {
-        throw TooMuchFuel();
+        throw ToMuchFuel();
     }
-
-    fuelAmount += newFuelAmount;
 }
 
 std::ostream& operator<<(std::ostream& out, const Car& car) {
-    out << "Car: " << car.getModel() << '\n';
-    out << "Car Location: " << car.getLocation() << '\n';
-    out << "Fuel Amount: " << car.getFuelAmount() << '\n';
-    out << "Consumption: " << car.getFuelConsumption() << '\n';
+    out << "Car: " << car.getModel() << std::endl;
+    out << "Car Location: " << car.getLocation() << std::endl;
+    out << "Fuel Amount: " << car.getFuelAmount() << std::endl;
+    out << "Consumption: " << car.getFuelConsumption() << std::endl;
     return out;
 }

@@ -1,24 +1,6 @@
 #include "Date.h"
-#include <ostream>
+#include <iostream>
 #include <iomanip>
-
-Date::Date(int day, int month, int year): day(day), month(month), year(year) {
-    validate(day, month, year);
-}
-
-Date::~Date() = default;
-
-int Date::getDay() const {
-    return this->day;
-}
-
-int Date::getMonth() const {
-    return this->month;
-}
-
-int Date::getYear() const {
-    return this->year;
-}
 
 void Date::validate(int day, int month, int year) {
     if (day < 1 || day > 31) {
@@ -45,10 +27,26 @@ void Date::validate(int day, int month, int year) {
     }
 }
 
+Date::Date(int day, int month, int year): day(1), month(1), year(1970) {
+    this->day = day;
+    this->month = month;
+    this->year = year;
+
+    validate(day, month, year);
+}
+Date::~Date() {}
+
+int Date::getDay() const {
+    return this->day;
+}
+int Date::getMonth() const {
+    return this->month;
+}
+int Date::getYear() const {
+    return this->year;
+}
 
 std::ostream& operator<<(std::ostream& out, const Date& date) {
-    out << '(' << std::setfill('0') << std::setw(2) << date.getDay();
-    out << ':' << std::setw(2) << date.getMonth();
-    out << ':' << std::setw(4) << date.getYear() << ')';
-    return out;
+    out << "(" << std::setfill('0') << std::setw(2) << date.getDay() << ":" << std::setw(2) << 
+    date.getMonth() << ":" << std::setw(4) << date.getYear() << ")" << std::endl;
 }

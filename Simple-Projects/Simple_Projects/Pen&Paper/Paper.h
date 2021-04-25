@@ -1,21 +1,21 @@
 #ifndef PAPER_H
 #define PAPER_H
 
-#include <string>
+#include <iostream>
 
 class OutOfSpace {};
 
 class Paper {
     private:
-        size_t maxSymbols;
-        size_t symbols;
+        int maxSymbols;
+        int symbols;
         std::string content;
     public:
-        Paper(size_t maxSymbols=4096);
+        Paper(int maxSymbols=4096);
         ~Paper();
 
-        size_t getMaxSymbols() const;
-        size_t getSymbols() const;
+        int getMaxSymbols() const;
+        int getSymbols() const;
 
         void addContent(const std::string& message);
         void show() const;

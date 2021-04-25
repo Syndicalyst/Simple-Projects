@@ -1,15 +1,16 @@
 #include "Pen.h"
 
-Pen::Pen(size_t inkCapacity): inkCapacity(inkCapacity), inkAmount(inkCapacity) {
+Pen::Pen(int inkCapacity): inkCapacity(4096) {
+    this->inkCapacity = inkCapacity;
+    this->inkAmount = inkCapacity;
 }
 
-Pen::~Pen() = default;
+Pen::~Pen() {}
 
-size_t Pen::getInkAmount() const {
+int Pen::getInkAmount() const {
     return this->inkAmount;
 }
-
-size_t Pen::getInkCapacity() const {
+int Pen::getInkCapacity() const {
     return this->inkCapacity;
 }
 
@@ -18,7 +19,7 @@ void Pen::write(Paper& paper, const std::string& message) {
         throw OutOfInk();
     }
     if (inkAmount < message.length()) {
-        paper.addContent(message.substr(0, inkAmount));
+        paper.addContent(message.substr(0, inkAmount - 1));
         inkAmount = 0;
         return;
     }

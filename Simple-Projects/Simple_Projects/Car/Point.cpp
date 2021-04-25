@@ -1,11 +1,11 @@
-#include <cmath>
-#include <ostream>
 #include "Point.h"
 
-Point::Point(double x, double y) : x(x), y(y) {
+Point::Point(double x, double y): x(0), y(0) {
+    this->x = x;
+    this->y = y;
 }
 
-Point::~Point() = default;
+Point::~Point() {}
 
 double Point::getX() const {
     return this->x;
@@ -15,16 +15,8 @@ double Point::getY() const {
     return this->y;
 }
 
-void Point::setX(double value) {
-    this->x = value;
-}
-
-void Point::setY(double value) {
-    this->y = value;
-}
-
-double Point::distance(const Point &other) const {
-    return hypot(x - other.x, y - other.y);
+double Point::distance(const Point& other) const {
+    return hypot(x-other.x, y-other.y);
 }
 
 bool Point::operator==(const Point& other) const {
@@ -32,9 +24,10 @@ bool Point::operator==(const Point& other) const {
 }
 
 bool Point::operator!=(const Point& other) const {
-    return !(*this == other);
+    return x != other.x || y != other.y;
 }
 
 std::ostream& operator<<(std::ostream& out, const Point& point) {
-    return out << '(' << point.getX() << '.' << point.getY() << ')';
+    out << '(' << point.getX() << ',' << point.getY() << ')';
+    return out;
 }

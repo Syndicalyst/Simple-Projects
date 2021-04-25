@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "Date.h"
 
 int main() {
@@ -9,7 +10,7 @@ int main() {
 	try {
 		Date date4(30, 13, 1234);
 	} catch (InvalidDate) {
-		std::cout << "\nError! Please enter REAL Date!\n";
+		std::cout << "\nError! Please enter REAL Date!\n" << std::endl;
 	}
 
 	std::cout << date << std::endl;

@@ -1,21 +1,19 @@
 #ifndef UNIT_H
 #define UNIT_H
 
-#include <iosfwd>
-#include <string>
+#include <iostream>
 
 class UnitIsDead {};
 
 class Unit {
     private:
-        std::string name;
         int damage;
         int hitPoints;
         int hitPointsLimit;
-
+        std::string name;
         void ensureIsAlive();
     public:
-        Unit(std::string name, int hp, int dmg);
+        Unit(const std::string& name, int hp, int dmg);
         ~Unit();
 
         int getDamage() const;

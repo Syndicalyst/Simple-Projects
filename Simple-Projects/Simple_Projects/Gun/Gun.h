@@ -1,20 +1,20 @@
 #ifndef GUN_H
 #define GUN_H
 
-#include <iosfwd>
+#include <iostream>
 
 class OutOfRounds {};
 class NotReady {};
 
 class Gun {
     private:
-        std::string model;
-        int capacity;
         int amount;
-        int totalShots;
+        int capacity;
         bool isReady;
+        std::string model;
+        int totalShots;
     public:
-        Gun(std::string model="Beretta", int capacity=8);
+        Gun(const std::string& model="Beretta", int capacity=8);
         ~Gun();
 
         int getAmount() const;

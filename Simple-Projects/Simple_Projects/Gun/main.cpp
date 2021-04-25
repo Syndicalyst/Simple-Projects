@@ -1,46 +1,50 @@
 #include <iostream>
 #include "Gun.h"
 
-static void tryShoot(Gun& gun) {
+int main() {
+    Gun rifle( "SVT-38", 10);
+    Gun pistol( "Mauser-23", 15);
+    
+    std::cout << "\nMy New Gun:\n" << rifle << std::endl;
+    std::cout << "\nMy New Pistol:\n" << pistol << std::endl;
+
     try {
-        gun.shoot();
+        rifle.shoot();
     } catch (NotReady) {
         std::cout << "Distort your gun shutter!\n" << std::endl;
     } catch (OutOfRounds) {
-        std::cout << "Reload your gun!\n" << std::endl;
+        std::cout << "\nReload your gun!\n" << std::endl;
     }
-}
 
-int main() {
-    Gun rifle("SVT-38", 10);
-    Gun pistol("Mauser-23", 15);
-    
-    std::cout << "My New Rifle:\n" << rifle << std::endl;
-    std::cout << "My New Pistol:\n" << pistol << std::endl;
-
-    tryShoot(rifle);
     rifle.reload();
     rifle.prepare();
     
     pistol.reload();
     pistol.prepare();
     
-    for ( int i = 0; i < 10; ++i ) {
+    for ( int i = 0; i < 10; i++ ) {
         rifle.shoot();
     }
 
-    tryShoot(rifle);
+    try {
+        rifle.shoot();
+    } catch (NotReady) {
+        std::cout << "Distort your gun shutter!\n" << std::endl;
+    } catch (OutOfRounds) {
+        std::cout << "\nReload your gun!\n" << std::endl;
+    }
+
     pistol.shoot();
 
-    std::cout << "My New Rifle:\n" << rifle << std::endl;
-    std::cout << "My New Pistol:\n" << pistol << std::endl;
+    std::cout << "\nMy New Gun:\n" << rifle << std::endl;
+    std::cout << "\nMy New Pistol:\n" << pistol << std::endl;
 
     rifle.prepare();
     rifle.reload();
     pistol.reload();
 
-    std::cout << "My New Rifle:\n" << rifle << std::endl;
-    std::cout << "My New Pistol:\n" << pistol << std::endl;
+    std::cout << "\nMy New Gun:\n" << rifle << std::endl;
+    std::cout << "\nMy New Pistol:\n" << pistol << std::endl;
 
     return 0;
 }

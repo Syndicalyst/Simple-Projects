@@ -1,10 +1,10 @@
-#include <ostream>
 #include "Complex.h"
 
-Complex::Complex(double real, double imaginary): real(real), imaginary(imaginary) {
+Complex::Complex(double real, double imaginary): real(0), imaginary(0) {
+    this->real = real;
+    this->imaginary = imaginary;
 }
-
-Complex::~Complex() = default;
+Complex::~Complex() {}
 
 double Complex::getReal() const {
     return this->real;
@@ -19,7 +19,7 @@ bool Complex::operator==(const Complex& other) const {
 }
 
 bool Complex::operator!=(const Complex& other) const {
-    return !(*this == other);
+    return real != other.real || imaginary != other.imaginary;
 }
 
 void Complex::operator+=(const Complex& other) {
@@ -55,5 +55,6 @@ Complex Complex::operator*(const Complex& other) const {
 }
 
 std::ostream& operator<<(std::ostream& out, const Complex& complex) {
-    return out << '(' << complex.getReal() << ',' << complex.getImaginary() << 'i' << ')';
+    out << '(' << complex.getReal() << ',' << complex.getImaginary() << 'i' << ')';
+    return out;
 }

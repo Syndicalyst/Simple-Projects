@@ -1,7 +1,8 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include <iosfwd>
+#include <iostream>
+#include <cmath>
 
 class Vector {
     private:

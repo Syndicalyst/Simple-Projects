@@ -1,10 +1,6 @@
 #include <iostream>
 #include "Unit.h"
 
-static void reportDead(const Unit& unit) {
-    std::cout << "Unit " << unit.getName() << " is dead!\n" << std::endl;
-}
-
 int main() {
     Unit militia("Militiaman Johnny", 40, 15);
     Unit cavalry("Knight Richard", 120, 50);
@@ -15,7 +11,7 @@ int main() {
     try {
         cavalry.attack(militia);
     } catch (UnitIsDead) {
-        reportDead(militia);
+        std::cout << "Unit " << militia.getName() << " is dead!\n" << std::endl;
     }
     
     std::cout << militia << std::endl;
@@ -24,7 +20,7 @@ int main() {
     try {
         militia.addHitPoints(10);
     } catch (UnitIsDead) {
-        reportDead(militia);
+        std::cout << "Unit " << militia.getName() << " is dead!\n" << std::endl;
     }
 
     cavalry.addHitPoints(10);
